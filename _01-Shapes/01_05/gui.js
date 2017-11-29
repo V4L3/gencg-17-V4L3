@@ -12,7 +12,7 @@ window.onload = function() {
   var gui = new dat.GUI();
   gui.add(options, 'circles').min(3).max(15).step(1);
   gui.add(options, 'strokeWeight').min(1).max(5).step(0.5);
-  gui.add(options, 'movement').min(0).max(100).step(1);
+  gui.add(options, 'movement').min(0).max(100).step(10);
   gui.add(options, 'direction').min(0).max(5).step(1);
   gui.addColor(options, 'circleColor');
   gui.add(options, 'fill');

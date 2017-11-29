@@ -3,7 +3,9 @@
 
 // Global var
 // The var are initialised in gui.js
-
+var imported = document.createElement('script');
+imported.src = 'gui.jst';
+document.head.appendChild(imported);
 var circles = options.circles;
 var circleSeeds = [];
 
