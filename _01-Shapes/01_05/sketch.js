@@ -4,6 +4,9 @@
 // Global var
 // The var are initialised in gui.js
 
+var circles = options.circles;
+var circleSeeds = [];
+
 function setup() {
   // Canvas setup
   canvas = createCanvas(windowWidth, windowHeight);
@@ -14,50 +17,53 @@ function setup() {
   // Init var
   // The var are initialised in gui.js
   var shape;
+
+  for (var i = 0; i < circles; i++) {
+    circleSeeds.push(random(0, 3))
+  }
+
 }
 
 function draw() {
-
-  translate(width/options.tileCount/2, height/options.tileCount/2);
-
-  background(0, options.bgAlpha);
+  circles = options.circles;
+  background(255)
   smooth();
-  if (!options.fill) {
-    noFill();
-    stroke(options.circleLineColor, options.circleLineAlpha);
-  } else {
-    fill(options.circleFillColor);    
-  }
-  randomSeed(options.actRandomSeed);
-  strokeWeight(mouseY/100);
-
-  for (gridY=0; gridY<options.tileCount; gridY++) {
-    for (gridX=0; gridX<options.tileCount; gridX++) {
-
-      // draw element here
-      
-      posX = width/options.tileCount * gridX;
-      posY = height/options.tileCount * gridY;
-
-      shiftX = random(-mouseX, mouseX)/20;
-      shiftY = random(-mouseX, mouseX)/20;
-
-      shape = random(0,2);
-      shapeInt = Math.floor(shape)
+  noFill();
 
 
-      if(shapeInt == 1){
-        ellipse(posX+shiftX, posY+shiftY, mouseY/15, mouseY/15);        
-      } else{
-      rect(posX+shiftX, posY+shiftY, mouseY/15, mouseY/15); 
-      }
-      
+  for (var i = 0; i < circles; i++) {
+    circleHeight = windowHeight - (i * (800/circles))
+    offset = i * options.movement
+    strokeWeight(i % 5 + options.strokeWeight)
+    stroke(options.circleColor)
+    if(options.fill){fill(color(options.circleFillColor))}
+    if(i % options.direction){ 
+    arc(windowWidth / 2, windowHeight / 2, circleHeight, circleHeight, 
+      mapMouseY(mouseY) + offset + circleSeeds[i], mapMouseX(mouseX) + offset + circleSeeds[i])    
+    }else {
+      arc(windowWidth / 2, windowHeight / 2, circleHeight, circleHeight, 
+        -mapMouseY(mouseY) + offset + circleSeeds[i], -mapMouseX(mouseX) + offset + circleSeeds[i])      
     }
   }
+
+}
+
+function mapMouseY(pY) {
+  return ((2 * PI) * pY) / windowHeight
+}
+
+function mapMouseX(pX) {
+  return 2 * PI * pX / windowHeight
 }
 
 function keyPressed() {
   if (key == 's' || key == 'S') saveThumb(650, 350);
+}
+
+function mousePressed() {
+  for (var i = 0; i < circles; i++) {
+    circleSeeds[i] = (random(0, 3 ))
+  }
 }
 
 // Tools
@@ -79,6 +85,6 @@ function timestamp() {
 
 // Thumb
 function saveThumb(w, h) {
-  let img = get( width/2-w/2, height/2-h/2, w, h);
-  save(img,'thumb.jpg');
+  let img = get(width / 2 - w / 2, height / 2 - h / 2, w, h);
+  save(img, 'thumb.jpg');
 }
