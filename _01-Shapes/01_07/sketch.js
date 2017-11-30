@@ -5,7 +5,7 @@ var gridArray = [];
 var tileSize = 70;
 var gridResolutionX;
 var gridResolutionY;
-var maxCount = 15;
+var maxCount = 1000;
 var count = 0;
 
 
@@ -21,7 +21,7 @@ function setup() {
   initTiles();
   //randomSeed(1);
   //noLoop();
-  //frameRate(3)
+  frameRate(3)
   generatePattern();
 }
 
@@ -31,17 +31,17 @@ function draw() {
   smooth();
 
 
-  for (var gridY = 0; gridY < gridResolutionY; gridY++) {
-    for (var gridX = 0; gridX < gridResolutionX; gridX++) {
-      let posX = tileSize * gridX - tileSize / 2;
-      let posY = tileSize * gridY - tileSize / 2;
-      strokeWeight(0.15);
-      fill(255);
-      //rect(posX, posY, tileSize, tileSize);
-      strokeWeight(3);
-      point(posX, posY)
-    }
-  }
+  // for (var gridY = 0; gridY < gridResolutionY; gridY++) {
+  //   for (var gridX = 0; gridX < gridResolutionX; gridX++) {
+  //     let posX = tileSize * gridX - tileSize / 2;
+  //     let posY = tileSize * gridY - tileSize / 2;
+  //     strokeWeight(0.15);
+  //     fill(255);
+  //     //rect(posX, posY, tileSize, tileSize);
+  //     strokeWeight(3);
+  //     point(posX, posY)
+  //   }
+  // }
 
 
   for (var gridY = 1; gridY < gridResolutionY - 1; gridY++) {
@@ -119,7 +119,6 @@ function generatePattern() {
     for (var gridX = 1; gridX < gridResolutionX - 1; gridX++) {
 
       if(gridArray[gridX][gridY].includes(true)){
-        console.log(true)
       }else{
 
       //Right Tile
