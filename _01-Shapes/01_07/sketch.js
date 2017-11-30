@@ -1,11 +1,13 @@
 "use_strict";
 
 // Global var
-var angle;
 var gridArray = [];
-var tileSize = 80;
+var tileSize = 70;
 var gridResolutionX;
 var gridResolutionY;
+var maxCount = 15;
+var count = 0;
+
 
 function setup() {
   // Canvas setup
@@ -14,15 +16,17 @@ function setup() {
   // Detect screen density (retina)
   var density = displayDensity();
   pixelDensity(density);
-  angle = [PI, HALF_PI, 2 * PI, 0];
-  gridResolutionX = round(width / tileSize) + 2;
-  gridResolutionY = round(height / tileSize) + 2;
+  gridResolutionX = round(width / tileSize) + 1;
+  gridResolutionY = round(height / tileSize) + 1;
   initTiles();
-  noLoop();
+  //randomSeed(1);
+  //noLoop();
+  //frameRate(3)
+  generatePattern();
 }
 
 function draw() {
-
+  generatePattern();
   background(255);
   smooth();
 
@@ -33,7 +37,9 @@ function draw() {
       let posY = tileSize * gridY - tileSize / 2;
       strokeWeight(0.15);
       fill(255);
-      rect(posX, posY, tileSize, tileSize);
+      //rect(posX, posY, tileSize, tileSize);
+      strokeWeight(3);
+      point(posX, posY)
     }
   }
 
@@ -41,34 +47,51 @@ function draw() {
   for (var gridY = 1; gridY < gridResolutionY - 1; gridY++) {
     for (var gridX = 1; gridX < gridResolutionX - 1; gridX++) {
       // use only active tiles
-      if (gridArray[gridX][gridY] == '1') {
-        let randomAngle = random(angle);
-        let posX
-        let posY
 
-        // if(gridX % 2 == 0){
-        //    posX = tileSize * gridX;
-        //    posY = tileSize * gridY;
-        // } else {
-           posX = tileSize * gridX + tileSize / 2;
-           posY = tileSize * gridY + tileSize / 2;
-        // }
-        
-        noFill()
-        strokeWeight(3)
-        arc(posX, posY, tileSize, tileSize, 0 + randomAngle, HALF_PI + randomAngle);
-        arc(posX, posY, tileSize + (tileSize/10) , tileSize + (tileSize/10), 0 + randomAngle, HALF_PI + randomAngle);
-        arc(posX, posY, tileSize + 2 * (tileSize/10) , tileSize + 2 * (tileSize/10), 0 + randomAngle, HALF_PI + randomAngle); 
-        arc(posX, posY, tileSize - (tileSize/10), tileSize - (tileSize/10), 0 + randomAngle, HALF_PI + randomAngle);      
-        arc(posX, posY, tileSize - 2 * (tileSize/10) , tileSize - 2 * (tileSize/10), 0 + randomAngle, HALF_PI + randomAngle);         
-        // decimalResult is the also the index for the shape array
-        //shape(modules[decimalResult],posX, posY, tileSize, tileSize);
+      let posX = tileSize * gridX + tileSize / 2;
+      let posY = tileSize * gridY + tileSize / 2;
+      let randomAngle
 
+      if (gridArray[gridX][gridY][0]) {
+        randomAngle = PI;
+        drawArc(posX, posY, randomAngle)
       }
+
+      if (gridArray[gridX][gridY][1]) {
+        randomAngle = 1.5 * PI;
+        drawArc(posX, posY, randomAngle)
+      }
+
+      if (gridArray[gridX][gridY][2]) {
+        randomAngle = HALF_PI;
+        drawArc(posX, posY, randomAngle)
+      }
+
+      if (gridArray[gridX][gridY][3]) {
+        randomAngle = 0;
+        drawArc(posX, posY, randomAngle)
+      }
+
     }
   }
 
+  if (count < maxCount) {
+    count++;
+  } else {
+    noLoop();
+  }
 
+}
+
+function drawArc(centerX, centerY, angle) {
+
+  noFill()
+  strokeWeight(2)
+  arc(centerX, centerY, tileSize, tileSize, 0 + angle, HALF_PI + angle);
+  arc(centerX, centerY, tileSize + (tileSize / 10), tileSize + (tileSize / 10), 0 + angle, HALF_PI + angle);
+  arc(centerX, centerY, tileSize + 2 * (tileSize / 10), tileSize + 2 * (tileSize / 10), 0 + angle, HALF_PI + angle);
+  arc(centerX, centerY, tileSize - (tileSize / 10), tileSize - (tileSize / 10), 0 + angle, HALF_PI + angle);
+  arc(centerX, centerY, tileSize - 2 * (tileSize / 10), tileSize - 2 * (tileSize / 10), 0 + angle, HALF_PI + angle);
 
 
 }
@@ -77,23 +100,103 @@ function initTiles() {
   for (var x = 0; x < gridResolutionX; x++) {
     gridArray[x] = []; // create nested array
     for (var y = 0; y < gridResolutionY; y++) {
-      gridArray[x][y] = Math.floor(random(0,2))
+      gridArray[x][y] = [false, false, false, false]
     }
+  };
+  setSeed();
+}
+
+function setSeed() {
+  for (var x = 0; x < 2; x++) {
+    let seedX = Math.floor(random(0, gridResolutionX))
+    let seedY = Math.floor(random(0, gridResolutionY))
+    gridArray[seedX][seedY][Math.floor(random(0, 5))] = true
   }
 }
 
-function drawPattern() {
-  for (var x = 0; x < gridResolutionX; x+=3) {
-    gridArray[x] = []; // create nested array
-    for (var y = 0; y < gridResolutionY; y+=3) {
-      gridArray[x][y] = 2
-      gridArray[x][y + 1] = 1
-      gridArray[x][y - 1] = 1
-      gridArray[x + 1][y] = 1
-      gridArray[x - 1][y] = 1
+function generatePattern() {
+  for (var gridY = 1; gridY < gridResolutionY - 1; gridY++) {
+    for (var gridX = 1; gridX < gridResolutionX - 1; gridX++) {
+
+      if(gridArray[gridX][gridY].includes(true)){
+        console.log(true)
+      }else{
+
+      //Right Tile
+      if (gridArray[gridX + 1][gridY][0]) {
+        if (random(0, 1) < 0.5) {
+          gridArray[gridX][gridY][3] = true
+        }
+        else {
+          gridArray[gridX + 1][gridY][2] = true
+        }
+      }
+      else if (gridArray[gridX + 1][gridY][2]) {
+        if (random(0, 1) < 0.5) {
+          gridArray[gridX][gridY][1] = true
+        }
+        else {
+          gridArray[gridX + 1][gridY][0] = true
+        }
+
+      }
+
+      //Left Tile
+      if (gridArray[gridX - 1][gridY][1]) {
+        if (random(0, 1) < 0.5) {
+          gridArray[gridX][gridY][2] = true
+        }
+        else {
+          gridArray[gridX - 1][gridY][3] = true
+        }
+
+      } else if (gridArray[gridX - 1][gridY][3]) {
+        if (random(0, 1) < 0.5) {
+          gridArray[gridX][gridY][0] = true
+        }
+        else {
+          gridArray[gridX - 1][gridY][1] = true
+        }
+      }
+
+      //Bottom Tile
+      if (gridArray[gridX][gridY + 1][0]) {
+        if (random(0, 1) < 0.5) {
+          gridArray[gridX][gridY][3] = true
+        }
+        else {
+          gridArray[gridX][gridY + 1][1] = true
+        }
+      } else if (gridArray[gridX][gridY + 1][1]) {
+        if (random(0, 1) < 0.5) {
+          gridArray[gridX][gridY][2] = true
+        }
+        else {
+          gridArray[gridX][gridY + 1][0] = true
+        }
+      }
+
+      //Top Tile
+      if (gridArray[gridX][gridY - 1][2]) {
+        if (random(0, 1) < 0.5) {
+          gridArray[gridX][gridY][1] = true
+        }
+        else {
+          gridArray[gridX][gridY - 1][3] = true
+        }
+      } else if (gridArray[gridX][gridY - 1][3]) {
+        if (random(0, 1) < 0.5) {
+          gridArray[gridX][gridY][0] = true
+        }
+        else {
+          gridArray[gridX][gridY - 1][2] = true
+        }
+      }
     }
   }
+  }
 }
+
 
 
 function keyPressed() {

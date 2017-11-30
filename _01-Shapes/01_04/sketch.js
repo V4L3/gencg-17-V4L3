@@ -13,7 +13,7 @@ function setup() {
   pixelDensity(density);
   tileCount = 23;
   angle = [PI,HALF_PI, 2*PI, 0];
-  //noLoop();
+  noLoop();
 }
 
 function draw() {
