@@ -1,4 +1,4 @@
-"use_strict"
+"use_strict";
 
 // Global var
 var tileCount; 
@@ -11,7 +11,7 @@ function setup() {
   // Detect screen density (retina)
   var density = displayDensity();
   pixelDensity(density);
-  tileCount = 23;
+  tileCount = 15;
   angle = [PI,HALF_PI, 2*PI, 0];
   //noLoop();
 }
@@ -28,11 +28,17 @@ function draw() {
       let posX = width / tileCount * gridX;
       let posY = width / tileCount * gridY;
 
-      arc(posX, posY, 60, 60, random(angle), random(angle))
-      arc(posX, posY, 50, 50, random(angle), random(angle))
-      arc(posX, posY, 40, 40, random(angle), random(angle))
-      arc(posX, posY, 30, 30, random(angle), random(angle))
+      // rect(posX, posY, 60, 60)
+
+      let randomAngle = random(angle);
       
+      strokeWeight(1)
+      arc(posX, posY, 60, 60, 0 + randomAngle, HALF_PI + randomAngle)
+      arc(posX, posY, 50, 50, 0 + randomAngle, HALF_PI + randomAngle)
+      arc(posX, posY, 40, 40, 0 + randomAngle, HALF_PI + randomAngle)
+      arc(posX, posY, 30, 30, 0 + randomAngle, HALF_PI + randomAngle)
+      strokeWeight(4)
+      point(posX, posY)
 
       // ellipse(posX, posY, 60)
       // ellipse(posX, posY, 50)
