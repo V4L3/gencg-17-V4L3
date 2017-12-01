@@ -46,7 +46,6 @@ function draw() {
 
   for (var gridY = 1; gridY < gridResolutionY - 1; gridY++) {
     for (var gridX = 1; gridX < gridResolutionX - 1; gridX++) {
-      // use only active tiles
 
       let posX = tileSize * gridX + tileSize / 2;
       let posY = tileSize * gridY + tileSize / 2;
@@ -78,7 +77,7 @@ function draw() {
   if (count < maxCount) {
     count++;
   } else {
-    noLoop();
+    //noLoop();
   }
 
 }
@@ -118,7 +117,7 @@ function generatePattern() {
   for (var gridY = 1; gridY < gridResolutionY - 1; gridY++) {
     for (var gridX = 1; gridX < gridResolutionX - 1; gridX++) {
 
-      if(gridArray[gridX][gridY].includes(true)){
+      if(gridArray[gridX][gridY].includes(true, true)){
       }else{
 
       //Right Tile
