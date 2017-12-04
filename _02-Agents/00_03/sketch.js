@@ -4,7 +4,7 @@ var agents = [];
 //var positions = [];
 var gridResolutionX;
 var gridResolutionY;
-var tileSize = 10;
+var tileSize = 20;
 
 function setup() {
   // Canvas setup
@@ -40,7 +40,7 @@ function draw() {
 
   //drawOverlay();
 
-  background(255, 0)
+  //background(255, 20)
   for (var i = 0; i < agents.length; i++) {
     agents[i].draw();
   }
@@ -107,7 +107,7 @@ class Agent {
   }
 
   draw() {
-    strokeWeight(2)
+    strokeWeight(1)
     point(this.x + cos(this.angle), this.y + sin(this.angle) + noise(this.bounceCount));
     this.movement();
     this.reachBorder();
@@ -137,7 +137,15 @@ class Agent {
             // else {
             //   this.angle -= random(PI, 1.5 * PI)
             // }
+            
           this.angle = random(0, 2 * PI);
+          
+          // if(random(1)> 0.5){
+          //   this.angle -= HALF_PI ;
+          // } else{
+          //   this.angle += HALF_PI ;
+          // }
+
           this.bounceCount--;
         }
       }

@@ -61,8 +61,7 @@ function initAgentsOnGrid(){
   let angle = random(0, 2 * PI)
   console.log(gridResolutionX)
   for (var gridY = 0; gridY < gridResolutionY; gridY++) {
-    for (var gridX = 0; gridX < gridResolutionX; gridX++) {
-      console.log("grid")      
+    for (var gridX = 0; gridX < gridResolutionX; gridX++) { 
       let posX = tileSize * gridX + tileSize / 2;
       let posY = tileSize * gridY + tileSize / 2;
 
@@ -85,6 +84,7 @@ class Agent {
     this.angle = angle;
     this.bounceCount = 2000;
     this.position = position;
+    this.collisionDelay = 0;
   }
 
   draw() {
@@ -101,7 +101,7 @@ class Agent {
       agents.splice(this.position, 1);
     }
 
-    if (positions.length > 5) {
+    if (positions.length > 5 && this.collisionDelay <= 0) {
       for (let i = 0; i < positions.length - 1; i++) {
         if (this.x <= positions[i].x + 1 && this.x >= positions[i].x - 1) {
           if (this.y <= positions[i].y + 1 && this.y >= positions[i].y - 1) {
@@ -109,21 +109,33 @@ class Agent {
             
 
             // if (this.angle > 1.5 * PI) {
-            //   this.angle -= random(0, HALF_PI);
+            //   this.angle = random(HALF_PI, PI);
             // } else if (this.angle > PI) {
-            //   this.angle -= random(0, HALF_PI);
+            //   this.angle = random(0, HALF_PI);
             // } else if (this.angle > HALF_PI) {
-            //   this.angle -= random(1.5 * PI, 2 * PI)
-            // }
-            // else {
+            //   this.angle = random(1.5 * PI, 2 * PI)
+            // } else {
             //   this.angle -= random(PI, 1.5 * PI)
             // }
-          this.angle = random(0, 2 * PI);
+
+          //this.angle = random(0, 2 * PI);
+          // this.angle -= random(0,HALF_PI) ;
+          // this.angle += random(0,HALF_PI)
+          if(random(1)> 0.5){
+            this.angle -= HALF_PI ;
+          } else{
+            this.angle += HALF_PI ;
+          }
+          
+          
           this.bounceCount--;
+          this.collisionDelay = 3;
         }
       }
 
     }
+  } else {
+    this.collisionDelay--
   }
 
 
