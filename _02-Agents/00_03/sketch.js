@@ -1,10 +1,10 @@
 // Global var
 
 var agents = [];
-var positions = [];
+//var positions = [];
 var gridResolutionX;
 var gridResolutionY;
-var tileSize = 100;
+var tileSize = 10;
 
 function setup() {
   // Canvas setup
@@ -16,8 +16,21 @@ function setup() {
   background(255);
   gridResolutionX = round(width / tileSize) + 1;
   gridResolutionY = round(height / tileSize) + 1;
-  initAgents();
+  initAgentsOnGrid();
  
+  rectMode(CENTER)
+
+  // for (var gridY = 0; gridY < gridResolutionY; gridY++) {
+  //   for (var gridX = 0; gridX < gridResolutionX; gridX++) {
+  //     let posX = tileSize * gridX - tileSize / 2;
+  //     let posY = tileSize * gridY - tileSize / 2;
+  //     strokeWeight(0.15);
+  //     fill(255);
+  //     rect(posX, posY, tileSize, tileSize);
+  //     strokeWeight(3);
+  //     point(posX, posY)
+  //   }
+  // }
 
 }
 
@@ -59,16 +72,19 @@ function initAgents() {
 
 function initAgentsOnGrid(){
   let angle = random(0, 2 * PI)
-  console.log(gridResolutionX)
   for (var gridY = 0; gridY < gridResolutionY; gridY++) {
     for (var gridX = 0; gridX < gridResolutionX; gridX++) {
-      console.log("grid")      
       let posX = tileSize * gridX + tileSize / 2;
       let posY = tileSize * gridY + tileSize / 2;
 
-      let a = new Agent(posX, posY, 0, 10, random(0, 2 * PI), gridX+gridY)
-      console.log(a)
-      agents.push(a)
+      let a0 = new Agent(posX, posY, 0, tileSize, random(0, 2 * PI), gridX+gridY)
+      // let a1 = new Agent(posX, posY, 0, tileSize, random(0, 2 * PI), gridX+gridY, tileNr)
+      // let a2 = new Agent(posX, posY, 0, tileSize, random(0, 2 * PI), gridX+gridY, tileNr)
+      // let a3 = new Agent(posX, posY, 0, tileSize, random(0, 2 * PI), gridX+gridY, tileNr)      
+      agents.push(a0)
+      // agents.push(a1)
+      // agents.push(a2)      
+      // agents.push(a3)
     }
   }
 
@@ -77,7 +93,9 @@ function initAgentsOnGrid(){
 class Agent {
   constructor(px, py, col, size, angle, position) {
     this.x = px;
+    this.xOrigin = px;
     this.y = py;
+    this.yOrigin = py;
     this.c = col;
     this.s = size
     this.offset = 2;
@@ -85,11 +103,12 @@ class Agent {
     this.angle = angle;
     this.bounceCount = 2000;
     this.position = position;
+    this.positions = []
   }
 
   draw() {
     strokeWeight(2)
-    point(this.x + cos(this.angle), this.y + sin(this.angle) + noise(this.bounceCount), this.s, this.s, );
+    point(this.x + cos(this.angle), this.y + sin(this.angle) + noise(this.bounceCount));
     this.movement();
     this.reachBorder();
     this.collisionDetection();
@@ -101,10 +120,10 @@ class Agent {
       agents.splice(this.position, 1);
     }
 
-    if (positions.length > 5) {
-      for (let i = 0; i < positions.length - 1; i++) {
-        if (this.x <= positions[i].x + 1 && this.x >= positions[i].x - 1) {
-          if (this.y <= positions[i].y + 1 && this.y >= positions[i].y - 1) {
+    if (this.positions.length > 5) {
+      for (let i = 0; i < this.positions.length - 1; i++) {
+        if (this.x <= this.positions[i].x + 1 && this.x >= this.positions[i].x - 1) {
+          if (this.y <= this.positions[i].y + 1 && this.y >= this.positions[i].y - 1) {
 
             
 
@@ -135,8 +154,8 @@ class Agent {
 
 
 reachBorder() {
-  if (this.x > 0) {
-    if (this.x < windowWidth) {
+  if (this.x > this.xOrigin - this.s/2) {
+    if (this.x < this.xOrigin + this.s/2) {
     }
     else {
       // going out on the right
@@ -150,8 +169,8 @@ reachBorder() {
     this.angle = (-PI / 2) + random(0, PI);
   }
 
-  if (this.y > 0) {
-    if (this.y < windowHeight) {
+  if (this.y > this.yOrigin - this.s/2) {
+    if (this.y < this.yOrigin + this.s/2) {
     }
     else {
       // going out on the bottom
@@ -165,7 +184,7 @@ reachBorder() {
 }
 
 movement() {
-  positions.push({ x: Math.round(this.x), y: Math.round(this.y) })
+  this.positions.push({ x: Math.round(this.x), y: Math.round(this.y) })
   this.x += cos(this.angle);
   this.y += sin(this.angle);
 }
