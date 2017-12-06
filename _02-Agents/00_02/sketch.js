@@ -17,7 +17,7 @@ function setup() {
   gridResolutionX = round(width / tileSize) + 1;
   gridResolutionY = round(height / tileSize) + 1;
   initAgents();
- 
+ smooth();
 
 }
 
@@ -27,7 +27,7 @@ function draw() {
 
   //drawOverlay();
 
-  background(255, 0)
+  background(255, 10  )
   for (var i = 0; i < agents.length; i++) {
     agents[i].draw();
   }

@@ -1,7 +1,7 @@
 ---
 layout: sketch
-title: "Web" 
-category: "Agents" 
+title: "Threads" 
+category: "Experiment", "Pattern" 
 thumb_name: "thumb.jpg"
 ---
 

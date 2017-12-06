@@ -4,7 +4,7 @@ var agents = [];
 //var positions = [];
 var gridResolutionX;
 var gridResolutionY;
-var tileSize = 20;
+var tileSize = 40;
 
 function setup() {
   // Canvas setup
@@ -17,8 +17,8 @@ function setup() {
   gridResolutionX = round(width / tileSize) + 1;
   gridResolutionY = round(height / tileSize) + 1;
   initAgentsOnGrid();
- 
-  rectMode(CENTER)
+  smooth();
+  rectMode(CENTER);
 
   // for (var gridY = 0; gridY < gridResolutionY; gridY++) {
   //   for (var gridX = 0; gridX < gridResolutionX; gridX++) {

@@ -4,7 +4,7 @@ var agents = [];
 //var positions = [];
 var gridResolutionX;
 var gridResolutionY;
-var tileSize = 100;
+var tileSize = 90;
 
 function setup() {
   // Canvas setup
@@ -19,6 +19,7 @@ function setup() {
   initAgentsOnGrid();
  
   rectMode(CENTER)
+  smooth();
 
   // for (var gridY = 0; gridY < gridResolutionY; gridY++) {
   //   for (var gridX = 0; gridX < gridResolutionX; gridX++) {
@@ -40,7 +41,7 @@ function draw() {
 
   //drawOverlay();
 
-  //background(255, 20)
+  background(255)
   for (var i = 0; i < agents.length; i++) {
     agents[i].draw();
   }
@@ -63,28 +64,27 @@ function drawOverlay() {
 
 
 function initAgents() {
-  let angle = random(0, 2 * PI)
-  for (var i = 0; i < 100; i++) {
+  let angle = 0;
+  let agentCount = 100;
+  for (var i = 0; i < agentCount; i++) {
     let a = new Agent(random(0, windowWidth), random(0, windowHeight), 0, 10, random(0, 2 * PI), i)
     agents.push(a)
   }
+  angle += 2*PI/agentCount;
 }
 
 function initAgentsOnGrid(){
-  let angle = random(0, 2 * PI)
+  let angle = 0;
+  let agentCount = 100;
   for (var gridY = 0; gridY < gridResolutionY; gridY++) {
     for (var gridX = 0; gridX < gridResolutionX; gridX++) {
       let posX = tileSize * gridX + tileSize / 2;
       let posY = tileSize * gridY + tileSize / 2;
 
-      let a0 = new Agent(posX, posY, 0, tileSize, random(0, 2 * PI), gridX+gridY)
-      // let a1 = new Agent(posX, posY, 0, tileSize, random(0, 2 * PI), gridX+gridY, tileNr)
-      // let a2 = new Agent(posX, posY, 0, tileSize, random(0, 2 * PI), gridX+gridY, tileNr)
-      // let a3 = new Agent(posX, posY, 0, tileSize, random(0, 2 * PI), gridX+gridY, tileNr)      
+      let a0 = new Agent(posX, posY, 0, tileSize, angle, gridX+gridY)     
       agents.push(a0)
-      // agents.push(a1)
-      // agents.push(a2)      
-      // agents.push(a3)
+      angle += 2*PI/agentCount;
+  
     }
   }
 
@@ -109,15 +109,18 @@ class Agent {
   draw() {
     strokeWeight(1)
     //point(this.x + cos(this.angle), this.y + sin(this.angle) + noise(this.bounceCount));
-    arc(this.x, this.y, 60, 60, PI, 2*PI)
-    arc(this.x, this.y, 50, 50, PI, 2*PI)
-    arc(this.x, this.y, 40, 40, PI, 2*PI)
-    arc(this.x, this.y, 30, 30, PI, 2*PI)
-    arc(this.x, this.y, 20, 20, PI, 2*PI)
-    this.angle+= 20
+    fill(30)
+    stroke(255)
+    arc(this.x, this.y, 60, 60, PI, 2*PI+this.angle)
+    arc(this.x, this.y, 50, 50, PI, 2*PI+this.angle)
+    arc(this.x, this.y, 40, 40, PI, 2*PI+this.angle)
+    arc(this.x, this.y, 30, 30, PI, 2*PI+this.angle)
+    arc(this.x, this.y, 20, 20, PI, 2*PI+this.angle)
+    this.angle+= 2*PI/100
+  
 
-    this.movement();
-    this.reachBorder();
+    // this.movement();
+    // this.reachBorder();
     //this.collisionDetection();
   }
 

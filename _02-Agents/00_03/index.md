@@ -1,7 +1,7 @@
 ---
 layout: sketch
-title: "title of the sketch" 
-category: "Experiment" 
+title: "Agent Grid" 
+category: "Agents" 
 thumb_name: "thumb.jpg"
 ---
 
