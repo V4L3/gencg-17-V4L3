@@ -4,7 +4,7 @@ var agents = [];
 //var positions = [];
 var gridResolutionX;
 var gridResolutionY;
-var tileSize = 90;
+var tileSize = 130;
 
 function setup() {
   // Canvas setup
