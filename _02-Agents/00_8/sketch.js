@@ -22,34 +22,6 @@ function setup() {
   rectMode(CENTER);
   noLoop();
 
-
-  // for (var gridY = 0; gridY < gridResolutionY; gridY++) {
-  //   for (var gridX = 0; gridX < gridResolutionX; gridX++) {
-  //     let posX = tileSize * gridX - tileSize / 2;
-  //     let posY = tileSize * gridY - tileSize / 2;
-  //     strokeWeight(0.15);
-  //     fill(255);
-  //     // save drawing state for later
-  //     push();
-
-  //     // move the origin to the pivot point
-  //     translate(posX, posY);
-
-  //     // then pivot the grid
-  //     rotate(radians(90));
-
-  //     rect(0, 0, tileSize, tileSize);
-
-  //     //revert to original drawing state
-  //     pop();
-
-  //     strokeWeight(3);
-  //     point(posX, posY)
-
-
-  //   }
-  // }
-
   opentype.load('fonts/linowrite.ttf', function (err, font) {
     if (err) {
       alert('Font could not be loaded: ' + err);
@@ -61,24 +33,24 @@ function setup() {
       var myGlyphs = font.stringToGlyphs('Digital Ideation');
       // If you just want to draw the text you can also use font.draw(ctx, text, x, y, fontSize).
 
+      console.log(myGlyphs)
 
       myGlyphs.forEach(element => {
-        //console.log(element)
-        push();
-        translate(100 + increment, 100)
-        scale(1, -1);
-        fill(random(0))
-        beginShape();
-        element.path.commands.forEach(point => {
-          vertex(point.x / 10, point.y / 10)
-        })
-        endShape();
-        pop();
-
-        //console.log(element.getBoundingBox().x2 - element.getBoundingBox().x1)
-        //let offset = element.getBoundingBox().x2
         if (element.name != "space") {
           increment += element.xMax / 10;
+          console.log()
+          push();
+          translate(100 + increment, 100)
+          //scale(1, -1);
+          fill(random(0))
+          //beginShape();
+          element.points.forEach(dot => {
+            if (!dot.onCurve) {
+              point(dot.x, dot.y)
+            }
+          })
+          //endShape();
+          pop();
         } else {
           increment += 60
         }
@@ -88,6 +60,15 @@ function setup() {
 
 }
 
+function drawLines(element, index, array) {
+  if (index != 0) {
+    line(element.x / 10, element.y / 10, array[index - 1].x / 10, array[index - 1].y / 10)
+    //line(element.x / 10, element.y / 10)    
+  }
+
+}
+
+
 function draw() {
 
   let faderX = mouseX / width;
@@ -96,6 +77,7 @@ function draw() {
 
 
 }
+
 
 function initAgentsOnGrid() {
   let angle = random(0, 2 * PI)
