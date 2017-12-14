@@ -13,6 +13,7 @@ class Agent {
     this.position = position;
     this.positions = []
     this.radiusincrease = 0;
+    this.increasing = true;
   }
 
   draw() {
@@ -83,7 +84,23 @@ class Agent {
     this.x += cos(this.angle);
     this.y += sin(this.angle);
     this.angle += this.radiusincrease;
-    this.radiusincrease+=10;
+   
+    if(this.increasing){
+      if(this.radiusincrease < 150){
+        this.radiusincrease++
+      }else{
+        this.increasing = false;
+      }
+    }else{
+      if(this.radiusincrease > -150){
+        this.radiusincrease--
+      }else{
+        this.radiusincrease--
+      }
+    }
+
+          
+    
 
 
 
