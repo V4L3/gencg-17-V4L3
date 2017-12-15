@@ -3,6 +3,10 @@ layout: sketch
 title: "Web" 
 category: "Agents" 
 thumb_name: "thumb.jpg"
+includes:
+   - src: "sketch.js"
+   - src: "agent.js"
+   - src: "gui.js"
 ---
 
 <!-- 
