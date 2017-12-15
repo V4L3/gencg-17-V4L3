@@ -29,13 +29,13 @@ function setup() {
   initTiles();
   // Init var
   // some of the var might be initialised in gui.js
-  backgroundGrey = 0;
+  backgroundGrey = [options.backgroundColor[0],options.backgroundColor[1],options.backgroundColor[2], options.overlayAlpha];
   background(backgroundGrey);
   // Init 
   initScene();
   // Draw text
   noStroke();
-  fill(backgroundGrey, options.txtAlpha);
+  fill(backgroundGrey);
   textSize(options.txtSize);
   text(options.txt, width / 2 - textWidth(options.txt) / 2, height / 2 + options.txtSize / 2);
   tileCount = 23;
@@ -45,9 +45,9 @@ function setup() {
 }
 
 function draw() {
-
+  backgroundGrey = [options.backgroundColor[0],options.backgroundColor[1],options.backgroundColor[2], options.overlayAlpha];
   smooth();
-  background(backgroundGrey, options.overlayAlpha);
+  background(backgroundGrey);
   randomSeed(seed);
 
   switch (options.patternMode) {

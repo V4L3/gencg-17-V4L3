@@ -8,7 +8,6 @@ var options = {
     // Draw
     overlayAlpha: 10, 
     agentsAlpha: 90,
-    txtAlpha: 90,
     strokeWidth: 0.3,
     drawMode: 1,
     agentsColor: [255, 255, 255],
@@ -30,7 +29,6 @@ window.onload = function() {
   // Draw
   gui.add(options, 'overlayAlpha').min(0).max(255).step(.1);
   gui.add(options, 'agentsAlpha').min(0).max(255).step(.1);
-  gui.add(options, 'txtAlpha').min(0).max(255).step(.1);
   gui.add(options, 'strokeWidth').min(0).max(10).step(.1);
   gui.add(options, 'drawMode', [1, 2,3] );
   gui.addColor(options, 'agentsColor')
