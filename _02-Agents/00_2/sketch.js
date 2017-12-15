@@ -27,7 +27,7 @@ function draw() {
 
   //drawOverlay();
 
-  background(255, 10  )
+  //background(255, 10  )
   for (var i = 0; i < agents.length; i++) {
     agents[i].draw();
   }
