@@ -85,7 +85,7 @@ function draw() {
 function drawArc(centerX, centerY, angle) {
 
   noFill()
-  stroke(255,0.7)
+  stroke(200)
   strokeWeight(1)
   arc(centerX, centerY, tileSize, tileSize, 0 + angle, HALF_PI + angle);
   arc(centerX, centerY, tileSize + (tileSize / 10), tileSize + (tileSize / 10), 0 + angle, HALF_PI + angle);
