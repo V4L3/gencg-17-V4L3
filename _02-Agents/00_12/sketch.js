@@ -29,7 +29,7 @@ function setup() {
   initTiles();
   // Init var
   // some of the var might be initialised in gui.js
-  backgroundGrey = [options.backgroundColor[0],options.backgroundColor[1],options.backgroundColor[2], options.overlayAlpha];
+  backgroundGrey = [options.backgroundColor[0], options.backgroundColor[1], options.backgroundColor[2], options.overlayAlpha];
   background(backgroundGrey);
   // Init 
   initScene();
@@ -45,11 +45,12 @@ function setup() {
 }
 
 function draw() {
-  backgroundGrey = [options.backgroundColor[0],options.backgroundColor[1],options.backgroundColor[2], options.overlayAlpha];
+  backgroundGrey = [options.backgroundColor[0], options.backgroundColor[1], options.backgroundColor[2], options.overlayAlpha];
   smooth();
   background(backgroundGrey);
   randomSeed(seed);
 
+  //Draw Pattern
   switch (options.patternMode) {
     case "1":
       initPattern1()
@@ -63,9 +64,9 @@ function draw() {
     default:
   }
 
+  //Draw agents  
   noiseDetail(options.octaves, options.falloff);
   stroke(options.agentsColor, options.agentsAlpha);
-  //Draw agents  
   for (var i = 0; i < agents.length - 1; i++) {
     agents[i].draw(options.noiseScale, options.noiseStrength, options.strokeWidth, options.drawMode);
   }
