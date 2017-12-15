@@ -1,11 +1,13 @@
-// Global var
+"use_strict";
 
-var agents = [];
-//var positions = [];
+// Global var
+var gridArray = [];
+var tileSize = 70;
 var gridResolutionX;
 var gridResolutionY;
-var tileSize = 50;
-var increment = 0;
+var maxCount = 1000;
+var count = 0;
+
 
 function setup() {
   // Canvas setup
@@ -14,13 +16,19 @@ function setup() {
   // Detect screen density (retina)
   var density = displayDensity();
   pixelDensity(density);
-  background(255);
   gridResolutionX = round(width / tileSize) + 1;
   gridResolutionY = round(height / tileSize) + 1;
-  initAgentsOnGrid();
+  initTiles();
+  //randomSeed(1);
+  //noLoop();
+  frameRate(3)
+  generatePattern();
+}
+
+function draw() {
+  generatePattern();
+  background(255);
   smooth();
-  rectMode(CENTER);
-  noLoop();
 
 
   // for (var gridY = 0; gridY < gridResolutionY; gridY++) {
@@ -29,86 +37,162 @@ function setup() {
   //     let posY = tileSize * gridY - tileSize / 2;
   //     strokeWeight(0.15);
   //     fill(255);
-  //     // save drawing state for later
-  //     push();
-
-  //     // move the origin to the pivot point
-  //     translate(posX, posY);
-
-  //     // then pivot the grid
-  //     rotate(radians(90));
-
-  //     rect(0, 0, tileSize, tileSize);
-
-  //     //revert to original drawing state
-  //     pop();
-
+  //     //rect(posX, posY, tileSize, tileSize);
   //     strokeWeight(3);
   //     point(posX, posY)
-
-
   //   }
   // }
 
-  opentype.load('fonts/linowrite.ttf', function (err, font) {
-    if (err) {
-      alert('Font could not be loaded: ' + err);
-    } else {
-      var ctx = document.getElementById('defaultCanvas0').getContext('2d');
-      // Construct a Path object containing the letter shapes of the given text.
-      // The other parameters are x, y and fontSize.
-      // Note that y is the position of the baseline.
-      var myGlyphs = font.stringToGlyphs('Digital Ideation');
-      // If you just want to draw the text you can also use font.draw(ctx, text, x, y, fontSize).
 
+  for (var gridY = 1; gridY < gridResolutionY - 1; gridY++) {
+    for (var gridX = 1; gridX < gridResolutionX - 1; gridX++) {
 
-      myGlyphs.forEach(element => {
-        //console.log(element)
-        push();
-        translate(100 + increment, 100)
-        scale(1, -1);
-        fill(random(0))
-        beginShape();
-        element.path.commands.forEach(point => {
-          vertex(point.x / 10, point.y / 10)
-        })
-        endShape();
-        pop();
-
-        //console.log(element.getBoundingBox().x2 - element.getBoundingBox().x1)
-        //let offset = element.getBoundingBox().x2
-        if (element.name != "space") {
-          increment += element.xMax / 10;
-        } else {
-          increment += 60
-        }
-      })
-    }
-  });
-
-}
-
-function draw() {
-
-  let faderX = mouseX / width;
-  let t = millis() / 1000;
-
-
-
-}
-
-function initAgentsOnGrid() {
-  let angle = random(0, 2 * PI)
-  for (var gridY = 0; gridY < gridResolutionY; gridY++) {
-    for (var gridX = 0; gridX < gridResolutionX; gridX++) {
       let posX = tileSize * gridX + tileSize / 2;
       let posY = tileSize * gridY + tileSize / 2;
+      let randomAngle
 
-      let a0 = new Agent(posX, posY, 0, tileSize, random(0, 2 * PI), gridX + gridY)
-      agents.push(a0)
+      if (gridArray[gridX][gridY][0]) {
+        randomAngle = PI;
+        drawArc(posX, posY, randomAngle)
+      }
+
+      if (gridArray[gridX][gridY][1]) {
+        randomAngle = 1.5 * PI;
+        drawArc(posX, posY, randomAngle)
+      }
+
+      if (gridArray[gridX][gridY][2]) {
+        randomAngle = HALF_PI;
+        drawArc(posX, posY, randomAngle)
+      }
+
+      if (gridArray[gridX][gridY][3]) {
+        randomAngle = 0;
+        drawArc(posX, posY, randomAngle)
+      }
+
     }
   }
 
+  if (count < maxCount) {
+    count++;
+  } else {
+    //noLoop();
+  }
+
+}
+
+function drawArc(centerX, centerY, angle) {
+
+  noFill()
+  strokeWeight(2)
+  arc(centerX, centerY, tileSize, tileSize, 0 + angle, HALF_PI + angle);
+  arc(centerX, centerY, tileSize + (tileSize / 10), tileSize + (tileSize / 10), 0 + angle, HALF_PI + angle);
+  arc(centerX, centerY, tileSize + 2 * (tileSize / 10), tileSize + 2 * (tileSize / 10), 0 + angle, HALF_PI + angle);
+  arc(centerX, centerY, tileSize - (tileSize / 10), tileSize - (tileSize / 10), 0 + angle, HALF_PI + angle);
+  arc(centerX, centerY, tileSize - 2 * (tileSize / 10), tileSize - 2 * (tileSize / 10), 0 + angle, HALF_PI + angle);
+
+
+}
+
+function initTiles() {
+  for (var x = 0; x < gridResolutionX; x++) {
+    gridArray[x] = []; // create nested array
+    for (var y = 0; y < gridResolutionY; y++) {
+      gridArray[x][y] = [false, false, false, false]
+    }
+  };
+  setSeed();
+}
+
+function setSeed() {
+  for (var x = 0; x < 2; x++) {
+    let seedX = Math.floor(random(0, gridResolutionX))
+    let seedY = Math.floor(random(0, gridResolutionY))
+    gridArray[seedX][seedY][Math.floor(random(0, 5))] = true
+  }
+}
+
+function generatePattern() {
+  for (var gridY = 1; gridY < gridResolutionY - 1; gridY++) {
+    for (var gridX = 1; gridX < gridResolutionX - 1; gridX++) {
+
+      if(gridArray[gridX][gridY].includes(true, true)){
+      }else{
+
+      //Right Tile
+      if (gridArray[gridX + 1][gridY][0]) {
+        if (random(0, 1) < 0.5) {
+          gridArray[gridX][gridY][3] = true
+        }
+        else {
+          gridArray[gridX + 1][gridY][2] = true
+        }
+      }
+      else if (gridArray[gridX + 1][gridY][2]) {
+        if (random(0, 1) < 0.5) {
+          gridArray[gridX][gridY][1] = true
+        }
+        else {
+          gridArray[gridX + 1][gridY][0] = true
+        }
+
+      }
+
+      //Left Tile
+      if (gridArray[gridX - 1][gridY][1]) {
+        if (random(0, 1) < 0.5) {
+          gridArray[gridX][gridY][2] = true
+        }
+        else {
+          gridArray[gridX - 1][gridY][3] = true
+        }
+
+      } else if (gridArray[gridX - 1][gridY][3]) {
+        if (random(0, 1) < 0.5) {
+          gridArray[gridX][gridY][0] = true
+        }
+        else {
+          gridArray[gridX - 1][gridY][1] = true
+        }
+      }
+
+      //Bottom Tile
+      if (gridArray[gridX][gridY + 1][0]) {
+        if (random(0, 1) < 0.5) {
+          gridArray[gridX][gridY][3] = true
+        }
+        else {
+          gridArray[gridX][gridY + 1][1] = true
+        }
+      } else if (gridArray[gridX][gridY + 1][1]) {
+        if (random(0, 1) < 0.5) {
+          gridArray[gridX][gridY][2] = true
+        }
+        else {
+          gridArray[gridX][gridY + 1][0] = true
+        }
+      }
+
+      //Top Tile
+      if (gridArray[gridX][gridY - 1][2]) {
+        if (random(0, 1) < 0.5) {
+          gridArray[gridX][gridY][1] = true
+        }
+        else {
+          gridArray[gridX][gridY - 1][3] = true
+        }
+      } else if (gridArray[gridX][gridY - 1][3]) {
+        if (random(0, 1) < 0.5) {
+          gridArray[gridX][gridY][0] = true
+        }
+        else {
+          gridArray[gridX][gridY - 1][2] = true
+        }
+      }
+    }
+  }
+  }
 }
 
 
