@@ -27,7 +27,7 @@ function setup() {
 
 function draw() {
   generatePattern();
-  background(255);
+  background(0);
   smooth();
 
 
@@ -86,6 +86,7 @@ function drawArc(centerX, centerY, angle) {
 
   noFill()
   strokeWeight(2)
+  stroke(255)
   arc(centerX, centerY, tileSize, tileSize, 0 + angle, HALF_PI + angle);
   arc(centerX, centerY, tileSize + (tileSize / 10), tileSize + (tileSize / 10), 0 + angle, HALF_PI + angle);
   arc(centerX, centerY, tileSize + 2 * (tileSize / 10), tileSize + 2 * (tileSize / 10), 0 + angle, HALF_PI + angle);
