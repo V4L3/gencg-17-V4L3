@@ -1,6 +1,6 @@
 ---
 layout: sketch
-title: "title of the sketch" 
+title: "Font Experiment" 
 category: "Experiment" 
 thumb_name: "thumb.jpg"
 includes:
