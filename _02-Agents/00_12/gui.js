@@ -1,7 +1,7 @@
 
 var options = {
     // Text
-    txt: "Digital Ideation",
+    txt: "DIGITAL IDEATION",
     txtSize: 150,
     step: 6,
     refresh: function () { initScene() },
