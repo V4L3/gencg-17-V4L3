@@ -1,5 +1,5 @@
-var gridResolutionX = Math.round(windowWidth / tileSize) + 1;;
-var gridResolutionY = Math.round(windowHeight / tileSize) + 1;;
+var gridResolutionX;
+var gridResolutionY;
 var tileSize = 70;
 
 initTiles();

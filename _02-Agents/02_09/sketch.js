@@ -34,6 +34,8 @@ function setup() {
   angle = [PI, HALF_PI, 2 * PI, 0];
   stroke(255);
   seed = random(0, 100)
+  gridResolutionY = Math.round(height / tileSize) + 1;;
+  gridResolutionX = Math.round(width / tileSize) + 1;;
 }
 
 function draw() {
