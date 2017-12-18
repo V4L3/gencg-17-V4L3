@@ -1,6 +1,6 @@
 ---
 layout: sketch
-title: "Final Combination" 
+title: "growing font" 
 category: "Experiment" 
 thumb_name: "thumb.jpg"
 includes:

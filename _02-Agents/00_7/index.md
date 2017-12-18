@@ -1,6 +1,6 @@
 ---
 layout: sketch
-title: "Move to order" 
+title: "Losing Font" 
 category: "Experiment" 
 thumb_name: "thumb.jpg"
 includes:

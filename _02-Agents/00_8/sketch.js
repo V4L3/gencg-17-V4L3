@@ -65,7 +65,7 @@ function initScene() {
     for (var j = 0; j < h; j += step) {
       if (data[((i + j * w) * 4) + 1] == 1) {
         letterPositions.push({ x: Math.round(this.x), y: Math.round(this.y) })
-        let a0 = new Agent(random(0,windowWidth),random(0,windowHeight),i/density, j/density, PI, position)
+        let a0 = new Agent(i/density, j/density, random(0, 2 * PI), position)
         agents.push(a0);
         position++;
       }

@@ -3,7 +3,7 @@
 
 // Global var
 // Some of the var might be initialised in gui.js
-var agents, density, letterPositions;
+var agents, density;
 
 function setup() {
   // Canvas setup
@@ -19,28 +19,27 @@ function setup() {
   background(backgroundGrey);
   // Init 
   initScene();
-  // Draw text
-  noStroke();
-  fill(backgroundGrey, options.txtAlpha);
-  textSize(options.txtSize);
-  text(options.txt, width / 2 - textWidth(options.txt) / 2, height / 2 + options.txtSize / 2);
 }
 
 function draw() {
 
   // 
   smooth();
-  background(backgroundGrey, options.overlayAlpha);
+  background(backgroundGrey, options.overlayAlpha);  
   stroke(255, options.agentsAlpha);
 
-  noiseDetail(options.octaves, options.falloff);
+  noiseDetail(options.octaves,options.falloff);
 
   // Draw agents  
-  for (var i = 0; i < agents.length - 1; i++) {
+  for(var i=0; i<agents.length-1; i++) {
     agents[i].draw(options.noiseScale, options.noiseStrength, options.strokeWidth, options.drawMode);
   }
 
-  
+  // Draw text
+  noStroke();
+  fill(backgroundGrey, options.txtAlpha);
+  textSize(options.txtSize);  
+  text(options.txt, width/2-textWidth(options.txt)/2, height/2+options.txtSize/2);
 
 }
 
@@ -49,34 +48,30 @@ function initScene() {
   background(0);
   fill(1);
   textSize(options.txtSize);
-  text(options.txt, width / 2 - textWidth(options.txt) / 2, height / 2 + options.txtSize / 2);
-
+  text(options.txt, width/2-textWidth(options.txt)/2, height/2+options.txtSize/2);
+  
   // Load pixels
-  letterPositions = [];
-  agents = [];
+  agents = []; 
   var step = options.step;
-  let w = width * density;
-  let h = height * density;
+  let w = width*density;
+  let h = height*density;
   let container = document.getElementById('p5Container');
   ctx = container.firstChild.getContext("2d");
   let data = ctx.getImageData(0, 0, w, h).data;
-  let position = 0;
-  for (var i = 0; i < w; i += step) {
-    for (var j = 0; j < h; j += step) {
-      if (data[((i + j * w) * 4) + 1] == 1) {
-        letterPositions.push({ x: Math.round(this.x), y: Math.round(this.y) })
-        let a0 = new Agent(random(0,windowWidth),random(0,windowHeight),i/density, j/density, PI, position)
+  for(var i=0; i<w; i+=step){
+    for(var j=0; j<h; j+=step){
+      if(data[ ((i + j*w)*4) + 1] == 1){
+        let a0 = new Agent(i/density, j/density, random(0, 2 * PI))
         agents.push(a0);
-        position++;
       }
     }
-  }
+  }  
 }
 
 function keyReleased() {
-  if (keyCode == DELETE || keyCode == BACKSPACE) background(backgroundGrey);
+  if (keyCode == DELETE || keyCode == BACKSPACE) background(backgroundGrey);  
   if (keyCode == 32) {
-    for (var i = 0; i < agents.length - 1; i++) agents[i].restart();
+    for(var i=0; i<agents.length-1; i++) agents[i].restart();
   }
   if (key == 's' || key == 'S') saveThumb(650, 350);
 
@@ -85,13 +80,13 @@ function keyReleased() {
   if (key == ' ') {
     let newNoiseSeed = floor(random(100000));
     noiseSeed(newNoiseSeed);
-  }
+  }  
 
   if (keyCode == UP_ARROW) options.falloff += 0.05;
   if (keyCode == DOWN_ARROW) options.falloff -= 0.05;
   if (options.falloff > 1.0) options.falloff = 1.0;
   if (options.falloff < 0.0) options.falloff = 0.0;
-
+  
   if (keyCode == LEFT_ARROW) options.octaves--;
   if (keyCode == RIGHT_ARROW) options.octaves++;
   if (options.octaves < 0) options.octaves = 0;
