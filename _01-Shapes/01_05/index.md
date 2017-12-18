@@ -1,12 +1,12 @@
 ---
 layout: sketch
-title: "Final Combination" 
-category: "Experiment" 
+title: "Random Circles" 
+category: "Shape" 
 thumb_name: "thumb.jpg"
 includes:
-  - src: "agent.js"
-  - src: "gui.js"
-  - src: "sketch.js"
+   - src: "sketch.js"
+   - src: "agent.js"
+   - src: "gui.js"
 ---
 
 <!-- 

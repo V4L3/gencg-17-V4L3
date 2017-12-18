@@ -1,7 +1,7 @@
 ---
 layout: sketch
-title: "growing font" 
-category: "Experiment" 
+title: "Threads" 
+category: "Pattern"
 thumb_name: "thumb.jpg"
 includes:
   - src: "agent.js"

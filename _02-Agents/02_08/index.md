@@ -1,7 +1,7 @@
 ---
 layout: sketch
 title: "Move to order" 
-category: "Experiment" 
+category: "Typography" 
 thumb_name: "thumb.jpg"
 includes:
   - src: "agent.js"

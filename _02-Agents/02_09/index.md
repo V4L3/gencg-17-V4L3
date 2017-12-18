@@ -1,7 +1,7 @@
 ---
 layout: sketch
-title: "Noise Eye" 
-category: "Experiment" 
+title: "Final Combination" 
+category: "Typography" 
 thumb_name: "thumb.jpg"
 includes:
   - src: "agent.js"
