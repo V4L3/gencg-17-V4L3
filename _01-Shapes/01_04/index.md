@@ -4,8 +4,6 @@ title: "Circle Grid"
 category: "Pattern" 
 thumb_name: "thumb.jpg"
 includes:
-  - src: "agent.js"
-  - src: "gui.js"
   - src: "sketch.js"
 ---
 

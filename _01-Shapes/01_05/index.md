@@ -5,8 +5,6 @@ category: "Shape"
 thumb_name: "thumb.jpg"
 includes:
    - src: "sketch.js"
-   - src: "agent.js"
-   - src: "gui.js"
 ---
 
 <!-- 
