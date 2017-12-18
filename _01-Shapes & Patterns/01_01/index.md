@@ -1,7 +1,7 @@
 ---
 layout: sketch
 title: "Circle Grid" 
-category: "Experiment" 
+category: "Pattern" 
 thumb_name: "thumb.jpg"
 includes:
   - src: "agent.js"

@@ -102,8 +102,6 @@ function initPattern2() {
       let posX = width / tileCount * gridX;
       let posY = width / tileCount * gridY;
 
-      // rect(posX, posY, 60, 60)
-
       let randomAngle = random(angle);
 
       strokeWeight(1)
@@ -113,13 +111,6 @@ function initPattern2() {
       arc(posX, posY, 43, 43, 0 + randomAngle, HALF_PI + randomAngle)
       arc(posX, posY, 33, 33, 0 + randomAngle, HALF_PI + randomAngle)
       strokeWeight(4)
-      // point(posX, posY)
-
-      // ellipse(posX, posY, 60)
-      // ellipse(posX, posY, 50)
-      // ellipse(posX, posY, 40)
-      // ellipse(posX, posY, 30)
-
     }
   }
 }
@@ -300,6 +291,7 @@ function initScene() {
   }
 }
 
+//New random Seed
 function newSeed() {
   seed = random(0, 100);
 }
