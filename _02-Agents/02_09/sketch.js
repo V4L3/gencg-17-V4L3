@@ -51,7 +51,7 @@ function draw() {
       drawPattern2();
       break;
     case "3":
-      initPattern3();
+      drawPattern3();
       break;
     default:
   }

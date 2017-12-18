@@ -4,7 +4,7 @@ var tileSize = 70;
 
 initTiles();
 
-function initPattern3() {
+function drawPattern3() {
     generatePattern();
     strokeWeight(0.5)
     stroke(options.patternColor)
