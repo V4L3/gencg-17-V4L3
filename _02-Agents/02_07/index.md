@@ -1,6 +1,6 @@
 ---
 layout: sketch
-title: "growing font" 
+title: "GROWING FONT" 
 category: "Typography" 
 thumb_name: "thumb.jpg"
 includes:

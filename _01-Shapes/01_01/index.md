@@ -1,6 +1,6 @@
 ---
 layout: sketch
-title: "Circle Grid" 
+title: "CIRCLE GRID" 
 category: "Pattern" 
 thumb_name: "thumb.jpg"
 includes:

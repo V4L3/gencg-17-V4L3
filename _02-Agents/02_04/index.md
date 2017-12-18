@@ -1,6 +1,6 @@
 ---
 layout: sketch
-title: "Threads" 
+title: "THREADS" 
 category: "Pattern"
 thumb_name: "thumb.jpg"
 includes:

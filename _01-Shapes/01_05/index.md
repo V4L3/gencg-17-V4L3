@@ -1,6 +1,6 @@
 ---
 layout: sketch
-title: "Random Circles" 
+title: "RANDOM CIRCLES" 
 category: "Shape" 
 thumb_name: "thumb.jpg"
 includes:

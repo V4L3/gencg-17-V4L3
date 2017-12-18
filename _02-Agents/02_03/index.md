@@ -1,6 +1,6 @@
 ---
 layout: sketch
-title: "Chase" 
+title: "CHASE" 
 category: "Pattern" 
 thumb_name: "thumb.jpg"
 includes:

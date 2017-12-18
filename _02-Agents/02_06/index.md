@@ -1,6 +1,6 @@
 ---
 layout: sketch
-title: "Losing Font" 
+title: "LOSING FONT" 
 category: "Typography" 
 thumb_name: "thumb.jpg"
 includes:

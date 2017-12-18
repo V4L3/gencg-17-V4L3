@@ -1,6 +1,6 @@
 ---
 layout: sketch
-title: "Agent Grid" 
+title: "AGENTS ON GRID" 
 category: "Agents" 
 thumb_name: "thumb.jpg"
 includes:

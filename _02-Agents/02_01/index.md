@@ -1,6 +1,6 @@
 ---
 layout: sketch
-title: "Web" 
+title: "WEB" 
 category: "Agents" 
 thumb_name: "thumb.jpg"
 includes:

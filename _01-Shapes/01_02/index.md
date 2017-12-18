@@ -1,6 +1,6 @@
 ---
 layout: sketch
-title: "Circle" 
+title: "CIRCLES" 
 category: "Shapes" 
 thumb_name: "thumb.jpg"
 includes:

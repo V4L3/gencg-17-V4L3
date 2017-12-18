@@ -1,6 +1,6 @@
 ---
 layout: sketch
-title: "Final Combination" 
+title: "FINAL COMBINATION" 
 category: "Typography" 
 thumb_name: "thumb.jpg"
 includes:

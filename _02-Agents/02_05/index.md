@@ -1,6 +1,6 @@
 ---
 layout: sketch
-title: "Noise Eye" 
+title: "NOISE EYE" 
 category: "Noise" 
 thumb_name: "thumb.jpg"
 includes:

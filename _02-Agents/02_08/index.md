@@ -1,6 +1,6 @@
 ---
 layout: sketch
-title: "Move to order" 
+title: "MOVE TO ORDER" 
 category: "Typography" 
 thumb_name: "thumb.jpg"
 includes:
