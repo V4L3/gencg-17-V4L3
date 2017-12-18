@@ -1,4 +1,4 @@
-var gridResolutionX;
+var gridResolutionX ;
 var gridResolutionY;
 var tileSize = 70;
 
@@ -146,8 +146,8 @@ function initTiles() {
 
 function setSeed() {
     for (var x = 0; x < 2; x++) {
-        let seedX = Math.floor(random(0, gridResolutionX))
-        let seedY = Math.floor(random(0, gridResolutionY))
-        gridArray[seedX][seedY][Math.floor(random(0, 5))] = true
+        let seedX = Math.floor(Math.random(0, gridResolutionX))
+        let seedY = Math.floor(Math.random(0, gridResolutionY))
+        gridArray[seedX][seedY][Math.floor(Math.random(0, 5))] = true
     }
 }
