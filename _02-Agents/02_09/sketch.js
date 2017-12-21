@@ -4,11 +4,13 @@
 // Global var
 // Some of the var might be initialised in gui.js
 var agents, density, letterPositions;
-
 var tileCount;
 var angle
 var seed;
 var maxCount = 1000;
+var gridArray = [];
+var gridResolutionX ;
+var gridResolutionY;
 
 
 function setup() {
@@ -34,11 +36,15 @@ function setup() {
   angle = [PI, HALF_PI, 2 * PI, 0];
   stroke(255);
   seed = random(0, 100)
-  gridResolutionY = Math.round(height / tileSize) + 1;;
-  gridResolutionX = Math.round(width / tileSize) + 1;;
+  gridResolutionY = Math.round(height / tileSize) + 1;
+  gridResolutionX = Math.round(width / tileSize) + 1;
+  //Initialize Pattern 3
+  initTiles();
+  setSeed();
 }
 
 function draw() {
+  //Get Background from GUI
   backgroundGrey = [options.backgroundColor[0], options.backgroundColor[1], options.backgroundColor[2], options.overlayAlpha];
   smooth();
   background(backgroundGrey);
@@ -70,6 +76,7 @@ function draw() {
 
 }
 
+//Get Text coordinates and Place Agents
 function initScene() {
   background(0);
   fill(1);

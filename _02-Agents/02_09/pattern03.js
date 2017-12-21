@@ -1,20 +1,18 @@
-var gridResolutionX ;
-var gridResolutionY;
+
 var tileSize = 70;
 
-initTiles();
-
 function drawPattern3() {
+    
     generatePattern();
     strokeWeight(0.5)
     stroke(options.patternColor)
     for (var gridY = 1; gridY < gridResolutionY - 1; gridY++) {
         for (var gridX = 1; gridX < gridResolutionX - 1; gridX++) {
-
+            
             let posX = tileSize * gridX + tileSize / 2;
             let posY = tileSize * gridY + tileSize / 2;
             let randomAngle
-
+          
             if (gridArray[gridX][gridY][0]) {
                 randomAngle = PI;
                 drawArc(posX, posY, randomAngle)
@@ -123,7 +121,6 @@ function generatePattern() {
 }
 
 function drawArc(centerX, centerY, angle) {
-
     noFill()
     arc(centerX, centerY, tileSize, tileSize, 0 + angle, HALF_PI + angle);
     arc(centerX, centerY, tileSize + (tileSize / 10), tileSize + (tileSize / 10), 0 + angle, HALF_PI + angle);
@@ -135,19 +132,22 @@ function drawArc(centerX, centerY, angle) {
 }
 
 function initTiles() {
+    console.log("init")
     for (var x = 0; x < gridResolutionX; x++) {
         gridArray[x] = []; // create nested array
         for (var y = 0; y < gridResolutionY; y++) {
             gridArray[x][y] = [false, false, false, false]
+            
         }
     };
-    setSeed();
 }
 
 function setSeed() {
     for (var x = 0; x < 2; x++) {
-        let seedX = Math.floor(Math.random(0, gridResolutionX))
-        let seedY = Math.floor(Math.random(0, gridResolutionY))
+        let seedX = Math.floor(random(1, gridResolutionX))
+        let seedY = Math.floor(random(1, gridResolutionY))
         gridArray[seedX][seedY][Math.floor(Math.random(0, 5))] = true
+        console.log(seedX,seedY );
     }
 }
+
