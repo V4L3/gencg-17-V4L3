@@ -32,7 +32,7 @@ function setup() {
   fill(backgroundGrey);
   textSize(options.txtSize);
   text(options.txt, width / 2 - textWidth(options.txt) / 2, height / 2 + options.txtSize / 2);
-  tileCount = 23;
+  //tileCount = 23;
   angle = [PI, HALF_PI, 2 * PI, 0];
   stroke(255);
   seed = random(0, 100)

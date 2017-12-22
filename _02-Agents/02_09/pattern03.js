@@ -6,6 +6,8 @@ function drawPattern3() {
     generatePattern();
     strokeWeight(0.5)
     stroke(options.patternColor)
+
+    //draw the generated Pattern
     for (var gridY = 1; gridY < gridResolutionY - 1; gridY++) {
         for (var gridX = 1; gridX < gridResolutionX - 1; gridX++) {
             
@@ -38,6 +40,7 @@ function drawPattern3() {
 
 }
 
+//Going through the Grid and checking where Arcs are already drawn and where each Agent can continue lines
 function generatePattern() {
     for (var gridY = 1; gridY < gridResolutionY - 1; gridY++) {
         for (var gridX = 1; gridX < gridResolutionX - 1; gridX++) {
@@ -120,6 +123,7 @@ function generatePattern() {
     }
 }
 
+//draw the Arcs
 function drawArc(centerX, centerY, angle) {
     noFill()
     arc(centerX, centerY, tileSize, tileSize, 0 + angle, HALF_PI + angle);
@@ -131,8 +135,8 @@ function drawArc(centerX, centerY, angle) {
 
 }
 
+//Initialize the 2d Array 
 function initTiles() {
-    console.log("init")
     for (var x = 0; x < gridResolutionX; x++) {
         gridArray[x] = []; // create nested array
         for (var y = 0; y < gridResolutionY; y++) {
@@ -142,12 +146,12 @@ function initTiles() {
     };
 }
 
+//Setting the starting Points for the Pattern
 function setSeed() {
     for (var x = 0; x < 2; x++) {
         let seedX = Math.floor(random(1, gridResolutionX))
         let seedY = Math.floor(random(1, gridResolutionY))
         gridArray[seedX][seedY][Math.floor(Math.random(0, 5))] = true
-        console.log(seedX,seedY );
     }
 }
 
