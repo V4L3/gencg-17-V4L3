@@ -1,5 +1,6 @@
 function drawPattern2() {
-    for (let gridX = 0; gridX < tileCount; gridX++) {
+  console.log("2")
+  for (let gridX = 0; gridX < tileCount; gridX++) {
       for (let gridY = 0; gridY < tileCount; gridY++) {
   
         let posX = width / tileCount * gridX;

@@ -1,4 +1,5 @@
 function drawPattern1() {
+  console.log("1")
     for (let gridX = 0; gridX < tileCount; gridX++) {
       for (let gridY = 0; gridY < tileCount; gridY++) {
   
